@@ -25,10 +25,7 @@ public:
     Cell* GetConcreteCell(Position pos);
 
 private:
-    void MaybeIncreaseSizeToIncludePosition(Position pos);
-    void PrintCells(std::ostream& output,
-                    const std::function<void(const CellInterface&)>& printCell) const;
-    Size GetActualSize() const;
-
-    std::vector<std::vector<std::unique_ptr<Cell>>> cells_;
+    // PositionHasher, как и Position, объявлен в common.h
+    std::unordered_map<Position, std::unique_ptr<Cell>, PositionHasher> cells_;
+    std::unordered_set<Position, PositionHasher> poses_;
 };
