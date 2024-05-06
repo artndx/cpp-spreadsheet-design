@@ -26,6 +26,14 @@ public:
     void Print(std::ostream& out) const;
     void PrintFormula(std::ostream& out) const;
 
+    std::forward_list<Position>& GetCells() {
+        return cells_;
+    }
+
+    const std::forward_list<Position>& GetCells() const {
+        return cells_;
+    }
+
 private:
     std::unique_ptr<ASTImpl::Expr> root_expr_;
     std::forward_list<Position> cells_;

@@ -21,9 +21,6 @@ public:
     void PrintValues(std::ostream& output) const override;
     void PrintTexts(std::ostream& output) const override;
 
-    const Cell* GetConcreteCell(Position pos) const;
-    Cell* GetConcreteCell(Position pos);
-
 private:
     // PositionHasher, как и Position, объявлен в common.h
     std::unordered_map<Position, std::unique_ptr<Cell>, PositionHasher> cells_;

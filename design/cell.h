@@ -5,7 +5,7 @@
 
 class Cell : public CellInterface {
 public:
-    Cell();
+    Cell(SheetInterface& sheet);
     ~Cell();
 
     void Set(std::string text);
@@ -24,8 +24,8 @@ private:
         virtual Value GetValue() const = 0;
         virtual std::string GetText() const = 0;
         virtual std::vector<Position> GetReferencedCells() const = 0;
-        virtual bool HasCache() const = 0;
-        virtual void InvalidateCache() = 0;
+        virtual bool HasCache() const;
+        virtual void InvalidateCache();
         virtual ~Impl() = default;
     };
     /*========================================*/            /* Пустой тип ячейки */
@@ -36,8 +36,6 @@ private:
         Value GetValue() const override;
         std::string GetText() const override;
         std::vector<Position> GetReferencedCells() const override;
-        bool HasCache() const override;
-        virtual void InvalidateCache() override;
     private:
         std::string content_ = "";
     };
@@ -49,8 +47,6 @@ private:
         Value GetValue() const override;
         std::string GetText() const override;
         std::vector<Position> GetReferencedCells() const override;
-        bool HasCache() const override;
-        virtual void InvalidateCache() override;
     private:
         std::string content_;
     };
@@ -73,6 +69,6 @@ private:
     std::unique_ptr<Impl> impl_;
     SheetInterface& sheet_;
 
-    std::set<Cell*> dependent_cells_;
-    std::set<Cell*> referenced_cells_;
+    std::set<Cell*> dependent_cells_;   // Ячейки, на которые мы ссылаемся
+    std::set<Cell*> referenced_cells_;  // Ячейки, которые на нас ссылаются
 };
